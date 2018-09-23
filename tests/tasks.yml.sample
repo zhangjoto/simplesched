@@ -1,0 +1,21 @@
+default:
+    to:
+        normal: 测试
+        error: 测试
+    module: myfunc
+    priority: 10
+    interval: 600
+actors:
+    - program: check_repay
+      to: 测试
+      trigger: interval
+      arguments:
+          - 20
+      priority: 5
+      interval: 30
+    - program: check_filesystem
+      module: anothermod
+      trigger: time
+      arguments:
+          - 20
+      times: 090000, 120000, 180000
