@@ -1,4 +1,26 @@
+identifer: 发送测试
+sender: RocketChatSender
+url: https://chat.xxxx.com/hooks/xxxxxxxxxxx
 default:
+    to:
+        normal: 测试
+        error: 测试
+    module: monext
+    priority: 5
+    interval: 500
+actors:
+    - program: check_repay
+      to: 测试
+      arguments:
+          - 20
+      trigger: interval
+      interval: 30
+    - program: check_repay_fail
+      to: 测试
+      arguments:
+          - None
+      trigger: interval
+      interval: 30
     to:
         normal: 测试
         error: 测试

@@ -7,4 +7,4 @@
 #
 
 from .base import BaseScheduler  # noqa
-from .senders import BearyChatSender  # noqa
+from .senders import *  # noqa
