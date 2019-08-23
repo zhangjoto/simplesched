@@ -22,8 +22,8 @@ def next_time(timetuple):
         dst = min(timetuple)
         delta = 1
 
-    t = [int(dst[i:i + 2]) for i in zip(range(0, len(dst), 2),
-                                        ('hour', 'minute', 'second'))]
+    t = {j: int(dst[i:i + 2]) for i, j in zip(range(0, len(dst), 2),
+                                              ('hour', 'minute', 'second'))}
 
     day = now.replace(**t) + datetime.timedelta(days=delta)
     return day.timestamp()
