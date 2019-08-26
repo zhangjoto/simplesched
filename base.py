@@ -82,11 +82,10 @@ class BaseScheduler:
                 return action(*args)
             except Exception as err:
                 logger.exception(err)
-                self.sender.send(
+                self.sender.error(
                     self.conf['default']['to']['error'],
-                    'From {}: {} error: {}'.format(
-                        self.conf['identifier'],
-                        one_task['program'], str(err)))
+                    {'from': self.conf['identifier'],
+                     'text': '{} {}'.format(one_task['program'], str(err))})
         return func
 
     def all_task_reg(self):
@@ -98,10 +97,10 @@ class BaseScheduler:
     def task_wrapper(self, task):
         pack = task['wrapped'](self.ctx, *task['arguments'])
         if pack:
-            pack = 'From {}: {}'.format(self.conf['identifier'], pack)
+            pack = {'from': self.conf['identifier'], 'text': pack}
             logger.debug('pack: %s', pack)
             to = task.get('to', self.conf['default']['to']['normal'])
-            self.sender.send(to, pack)
+            self.sender.warn(to, pack)
 
     def run(self):
         self.all_task_reg()
